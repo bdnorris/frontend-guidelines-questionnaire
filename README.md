@@ -2,7 +2,33 @@
 A one-page questionnaire to help your team establish effective frontend guidelines, so that you can write consistent & cohesive code together.
 
 ## HTML
+
 ### HTML Principles
+
+#### HTML Semantics, Accessibility and Landmarks
+HTML, as a content markup language, adds additional meaning to the content. An understanding of HTML elements and the meaning they add, is expected by HTML authors.  This is an ongoing process, there is not a minimum or maximum of required knowledge.
+
+Although this is typically not visible to most users, it is integral to software, like browsers, web crawlers and screen readers (and other assistive technologies). 
+
+All those authoring HTML should have an understanding of [HTML tags that imply structure and meaning](https://www.w3.org/TR/wai-aria-practices/examples/landmarks/HTML5.html). Using them correctly will correspond to common accessibility landmarks with no extra effort.
+
+Special attention should be paid to forms. 
+
+https://keithjgrant.com/posts/2018/03/html5-sectioning-and-landmark-elements/
+http://html5doctor.com/avoiding-common-html5-mistakes/
+
+#### HTML Headings
+
+#### HTML Meta tags
+Doctype
+UTF
+lang
+
+
+#### HTML Structuring for styling
+
+Obviously, you will need to add extra `<div>`s and `<span>`s to help you in properly styling your content. These elements should usually be free of landmark roles. 
+
 - **What are some general principles your team should follow when writing HTML?** *(for example, authoring semantic HTML5 markup, accessibility, etc. See [these](http://www.yellowshoe.com.au/standards/#html) [resources](http://codeguide.co/#html) for [inspiration](http://manuals.gravitydept.com/code/html))*
 
 
@@ -11,7 +37,7 @@ A one-page questionnaire to help your team establish effective frontend guidelin
 - **Are you using a templating engine** *(such as [Mustache](https://mustache.github.io/), [Handlebars](http://handlebarsjs.com/), etc)*?
 - **Does your backend architecture influence the frontend markup in any way** (for example, WordPress will add `wp-paginate` to a class in your markup)? If so, can you highlight these conventions? 
 
-### HTML Style
+### HTML Syntax and Style
 - **Spaces or Tabs?**
 - **What does HTML commenting look like?** 
 
@@ -70,6 +96,8 @@ A one-page questionnaire to help your team establish effective frontend guidelin
 - **How are you handling icons** *(such as using SVG, icon fonts, etc)*?
 - **How are you handling responsive images** *(such as using `srcset` & `<picture />`)*?
 - **Are you using any [tools](https://addyosmani.com/blog/image-optimization-tools/) to optimize and serve images**?
+
+### SVG
 
 ---------------
 
