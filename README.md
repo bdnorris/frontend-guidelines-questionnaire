@@ -3,43 +3,165 @@ A one-page questionnaire to help your team establish effective frontend guidelin
 
 ## HTML
 
-### HTML Principles
+Liberally "borrowing" from [Gravity Depot's HTML Manual](https://manuals.gravitydept.com/code/html/)
 
-#### HTML Semantics, Accessibility and Landmarks
+## HTML Style
+
+### Formatting
+Tag names and attributes should always be lowercase. Attribute values should use double quotes.
+
+```html
+<img src="image.png" alt="My Image with a thing happening">
+```
+
+### Attributes
+When your element has more than 3 or so attributes, it might be a good idea to break the attributes into separate lines for readability and source control tracking.
+
+```html
+<button
+  type="button"
+  class="button"
+  id="coordinates-button"
+  data-loading="Loading..."
+  data-x="123"
+  data-y="789"
+>
+  Send Coordinates
+</button>
+```
+### Indentation
+
+Let's argue
+
+### Closing tags
+
+Always close tags, even when they're optional (`<ul>`, `<li>`)
+
+Don't add closing `/`s to "void" elements (unless your template language requires it). They are no longer needed. 
+
+```html
+<img>
+<!-- not -->
+<img />
+```
+
+### Comments
+
+Although it is fine to use HTML comments, if your template language allows it, try to use comments that that won't render in the final HTML. 
+
+That being said, comment if you feel it's necessary to provide context or help visually identify blocks when debugging.
+
+*Be mindful that HTML comments are possible visible to the user.*
+
+If you're using comments to temporarily "Comment Out" something, try to remember to remove that thing later if no longer needed (once the task is nearing completion).
+
+### Nesting, line breaks, and indenting
+
+Indenting nested elements in your HTML is usually preferable, but elements with little content and no attributes are an exception.
+
+```html
+<p>The quick brown fox jumps.</p>
+
+<!-- vs -->
+
+<p class="lead">
+    The quick brown fox jumps.
+</p>
+```
+
+### Blank Lines
+
+Use blank lines when some visual separation would aid in understanding the document, but stick to one or two lines so stylistic differences between team members doesn't lead to more confusion.
+
+## HTML Principles
+
+### HTML Semantics, Accessibility and Landmarks
 HTML, as a content markup language, adds additional meaning to the content. An understanding of HTML elements and the meaning they add, is expected by HTML authors.  This is an ongoing process, there is not a minimum or maximum of required knowledge.
 
 Although this is typically not visible to most users, it is integral to software, like browsers, web crawlers and screen readers (and other assistive technologies). 
 
 All those authoring HTML should have an understanding of [HTML tags that imply structure and meaning](https://www.w3.org/TR/wai-aria-practices/examples/landmarks/HTML5.html). Using them correctly will correspond to common accessibility landmarks with no extra effort.
 
-Special attention should be paid to forms. 
-
 https://keithjgrant.com/posts/2018/03/html5-sectioning-and-landmark-elements/
+
 http://html5doctor.com/avoiding-common-html5-mistakes/
 
-#### HTML Headings
+### Use Appropriate Elements
 
-#### HTML Meta tags
-Doctype
-UTF
-lang
+The basics of semantic HTML is using the most appropriate element for the content. Familiarity with headings (`<h1>`), HTML5 elements (`<article> <aside> <figure> <figcaption> <header> <footer> <main> <nav> <section>`), and using the appropriate form elements is expected.
 
+It is still encouraged to identify these elements with classes for styling, rather than relying on element selectors that could cause issues in the future.
 
-#### HTML Structuring for styling
+For example, headings should be structured in a predictable 1-6 order, whereas the visual hierarchy put in place by the designer may not perfectly correspond.
 
-Obviously, you will need to add extra `<div>`s and `<span>`s to help you in properly styling your content. These elements should usually be free of landmark roles. 
+### Sections and Document Hierarchy
 
-- **What are some general principles your team should follow when writing HTML?** *(for example, authoring semantic HTML5 markup, accessibility, etc. See [these](http://www.yellowshoe.com.au/standards/#html) [resources](http://codeguide.co/#html) for [inspiration](http://manuals.gravitydept.com/code/html))*
+Landmark roles established with HTML should have their own heading hierarchy. 
 
+```html
+<div class="primary">
+    <h1>Page Title</h1>
+
+    <article>
+        <h1>Article Title</h1>
+        <p>Llorem ipsum dolor sit amet.</p>
+
+        <h2>Article Subtitle</h2>
+        <p>Curabitur vulputate, ligula lacinia scelerisque tempor.</p>
+
+        <h2>Article Subtitle</h2>
+        <p>Curabitur vulputate, ligula lacinia scelerisque tempor.</p>
+    </article>
+
+    <article>
+        <h1>Article Title</h1>
+        <p>Nulla facilisi. Duis aliquet egestas purus in blandit.</p>
+    </article>
+</div>
+
+<aside>
+    <h1>Related Articles</h1>
+    ...
+</aside>
+```
+
+### HTML Structuring for styling
+
+If everything goes correctly, we would be able to achieve our desired UI designs based on a purely semantic document structure. However, it's likely you will need to add extra `<div>`s and `<span>`s to help you properly and robustly style your content. 
+
+These elements should be free of landmark roles. Never use something like a `<section>` or `<article>` just for styling. Ideally, if the UI were to be redesigned, these structural containers could be removed or reworked easily, without affecting any semantic meaning.
+
+### Using IDs
+
+Use IDs on major points of interest for hash linking purposes, especially on larger pages. But remember, IDs should be unique, and generally _NOT_ used for styling. 
+
+They can also be used as javascript selectors, since if they are unique, the `getElementById` method is a reliable way to reference a single DOM node.
+
+### HTML Meta tags
+
+The following tags should be a part of all HTML documents.
+
+- Doctype should be present on line 1: `<!doctype html>`
+- HTML tag should have a lang attribute: `<html lang="en-us">`
+- UTF-8 Character set should be set: `<meta charset="utf-8">`
+- Viewport Meta should be set: `<meta name="viewport" content="width=device-width, initial-scale=1">`
+
+### Including CSS and JS
+
+Generally, CSS should be loaded in the head of your document via the `<link>` tag, and JS should be loaded via a `<script>` tag before the closing `</body>` tag. However, there are valid reasons to break this pattern.
+
+CSS loading is render blocking, so delaying some of your less necessary CSS to later in the document is a valid approach.
+
+Some JS must load in the head. Analytics often need this, as well as anything that manipulates the DOM on load, like `modernizr`. 
+
+What's important is that you pay attention and only include items in head of the document that you absolutely need to.
 
 ### HTML Tools
 - **Are you using an HTML preprocessor** *(such as [HAML](http://haml.info/), [Jade](http://jade-lang.com/), etc)*?
 - **Are you using a templating engine** *(such as [Mustache](https://mustache.github.io/), [Handlebars](http://handlebarsjs.com/), etc)*?
 - **Does your backend architecture influence the frontend markup in any way** (for example, WordPress will add `wp-paginate` to a class in your markup)? If so, can you highlight these conventions? 
 
-### HTML Syntax and Style
-- **Spaces or Tabs?**
-- **What does HTML commenting look like?** 
+
 
 ---------------
 
