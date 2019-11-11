@@ -94,6 +94,24 @@ It is still encouraged to identify these elements with classes for styling, rath
 
 For example, headings should be structured in a predictable 1-6 order, whereas the visual hierarchy put in place by the designer may not perfectly correspond.
 
+### Enhancing with JavaScript
+
+Although we'll discuss use of JavaScript more below, keep in mind that JavaScript is supposed to be an enhancement to the page, and any HTML that relies on it's functioning needs to have considerations regarding what happens when it doesn't work, and what elements are appropriate to use. 
+
+Write as little markup in your JavaScript as possible. Putting markup in JS makes it harder to find and refactor.
+
+#### Buttons vs Links
+
+The anchor tag `<a>` is effectively invalid if it does not have a valid href attribute. Capturing the click of an anchor tag with JavaScript is inappropriate and bad for accessibility and SEO, unless it's specifically designed as a fallback. For instance, hijacking a link for tracking purposes is common (we usually let Google Tag Manager handle this), because in the end, we want the link to work like a link, and if JavaScript is unavailable, the link would still work. 
+
+Setting a `#` as a self-referential, or fake, link should only be done for development purposes when you don't have the correct link yet, and not as a way to neuter a link you intend to hijack.
+
+The `<button>` element is the correct element to use if you are wanting to capture clicks to fire off event handlers. There is some style baggage with buttons, but these can be overcome easily, and it is easier to add proper aria attributes for accessibility purposes. Just make sure if it is not a button that is submitting a form, that you add the "type" attribute (the default type is "submit"). 
+
+```html
+<button type="button"></button>
+```
+
 ### Sections and Document Hierarchy
 
 Landmark roles established with HTML should have their own heading hierarchy. 
@@ -129,7 +147,9 @@ Landmark roles established with HTML should have their own heading hierarchy.
 
 If everything goes correctly, we would be able to achieve our desired UI designs based on a purely semantic document structure. However, it's likely you will need to add extra `<div>`s and `<span>`s to help you properly and robustly style your content. 
 
-These elements should be free of landmark roles. Never use something like a `<section>` or `<article>` just for styling. Ideally, if the UI were to be redesigned, these structural containers could be removed or reworked easily, without affecting any semantic meaning.
+These elements should be free of landmark roles. Never use something like a `<section>` or `<article>` just for styling. Ideally, if the UI were to be redesigned, these containers could be removed or reworked easily, without affecting any semantic meaning.
+
+Do keep in mind that excessive DOM elements do affect browser performance, SEO, and accessibility. 
 
 ### Using IDs
 
@@ -157,8 +177,11 @@ Some JS must load in the head. Analytics often need this, as well as anything th
 What's important is that you pay attention and only include items in head of the document that you absolutely need to.
 
 ### HTML Tools
-- **Are you using an HTML preprocessor** *(such as [HAML](http://haml.info/), [Jade](http://jade-lang.com/), etc)*?
-- **Are you using a templating engine** *(such as [Mustache](https://mustache.github.io/), [Handlebars](http://handlebarsjs.com/), etc)*?
+
+There are currently no defined HTML preprocessor or templating engine do's or don'ts. Use Pug or Handlebars if you'd like.
+
+
+
 - **Does your backend architecture influence the frontend markup in any way** (for example, WordPress will add `wp-paginate` to a class in your markup)? If so, can you highlight these conventions? 
 
 
@@ -180,6 +203,8 @@ What's important is that you pay attention and only include items in head of the
 - **Are you using a CSS base** *(such as [Normalize](https://necolas.github.io/normalize.css/) or a [reset](http://meyerweb.com/eric/tools/css/reset/))*?
 - **Are you using any CSS postprocessors** *(such as [Prefixfree](https://leaverou.github.io/prefixfree/) or [Autoprefixer](https://github.com/postcss/autoprefixer))*?
 - **Are there specific CSS techniques you're utilizing** *(such as [critical CSS](https://www.smashingmagazine.com/2015/08/understanding-critical-css/))*?
+
+### Media Queries
 
 ### CSS Frameworks
 - **Is the team using a framework** *(such as [Bootstrap](https://getbootstrap.com/) or [Foundation](http://foundation.zurb.com/))*? If yes, where is the documentation for that framework?
@@ -211,6 +236,23 @@ What's important is that you pay attention and only include items in head of the
 - **Spaces or Tabs?**
 - **What does JS commenting look like?** 
 - **What patterns are you following?** *(See [these](https://addyosmani.com/resources/essentialjsdesignpatterns/book/) [resources](https://shichuan.github.io/javascript-patterns/))*
+
+
+From: https://yellowshoe.com.au/standards/#js
+
+Best practices:
+
+    Favour the framework & DRY
+    Avoid inline & embedded js
+    Keep global scope clean, put code into namespaces Page, Util, Controls
+    Be defensive, feature detect
+    Test performance in all browsers mentioned above - use console.time to track down bottlenecks.
+    Minimise number of event listeners on a page, use event delegation
+    Keep components as independent as possible
+    var every variable 
+
+
+Cookies - keep em small, they're sent every request
 
 ---------------
 
@@ -293,3 +335,12 @@ It's important to recognize the difference between ["support" and "optimization"
 -----------
 
 *Feel free to modify or extend (such as adding specific sections for performance, accessibility, etc) this document for your own organization's needs. For questions, comments, additions, and corrections, please open an issue on Github and/or reach out to [@brad_frost](https://twitter.com/brad_frost) on Twitter.*
+
+
+
+
+## Browser Support
+
+## Testing
+- 404
+- my whole checklist
