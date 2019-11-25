@@ -191,6 +191,153 @@ There are currently no defined HTML preprocessor or templating engine do's or do
 ## CSS 
 
 ### CSS Principles
+
+#### Property ordering
+
+No specific rules will be in place for the ordering of properties. However, there are some general guidelines that will make your code cleaner and easier to read. 
+
+When using Scss, it is proper to nest pseudo classes, pseudo elements, and media queries, but put all of your properties above these, then list pseudo classes, then leave media queries for last. 
+
+```scss
+.class {
+    property: value;
+    property: value;
+    property: value;
+
+    &:hover {
+        property: value;
+    }
+
+    &::after {
+        property: value;
+    }
+
+    @media screen {
+        property: value
+    }
+}
+```
+
+Always use two `::` for pseudo elements. 
+
+Things aren't always this simple though, so just make sure you keep related things as close together as possible, even if it violates this ordering. 
+
+#### Formatting
+
+Add empty lines between declarations, unless they are closely related. 
+
+```scss
+.class1 {
+
+}
+.class1__item {
+
+}
+.class1--super {
+
+}
+
+.class2 {
+
+}
+```
+
+Be consistent in spacing, it makes your code more predictable, readable, and searchable. 
+
+- One space after selector
+- Opening curly-bracket on the same line as the selector
+- Closing bracket on new line
+- One space after colon
+- Semi-colon after every value
+
+##### Good
+
+```scss
+.class {
+    property: value;
+}
+```
+
+##### Bad
+
+```scss
+.class{
+    property:value;
+}
+```
+
+Never put properties and all brackets on the same line! The only exception to this is when there is only one property in a declaration. 
+
+##### Bad
+
+```scss
+.class { property: value; property: value; property: value; }
+```
+
+This ruins your git history and is generally hard to read.
+
+##### OK, but not required or even necessarily encouraged
+
+```scss
+.class { property: value; }
+```
+
+When grouping selectors, break them into multiple lines to be more readable: 
+
+```scss
+.class1, 
+.class2 {
+    property: value;
+}
+```
+
+In Attribute selectors, use single quotes, unless you can't...
+
+```scss
+[attr='value'] {}
+[attr="When It's Necessary"] {}
+```
+
+Space around combinators:
+
+```scss
+.parent > .child {}
+.sibling + .sibling {}
+```
+
+
+
+#### Commenting
+
+When using Sass, most comment should be the `//` type. These do not get compiled to your final CSS. Standard CSS comments (`/* */`) do get compiled, so only include comments like this if you want them to be in the final CSS.
+
+Add `*` for important comments, `!` for warnings, `?` for questions, `TODO` for todos. 
+
+```scss
+// * I'm important
+// ! Watchout
+// ? What is going on here?
+// TODO I will do this someday
+```
+
+#### Naming
+
+Detailed naming conventions are below under CSS Methodology. 
+
+But for the basics, selectors, which means your classes as well, should always be lowercase and never being with an number.
+
+#### Colors
+
+If using Scss, try to always use variables for colors. The exception might be the named color `white`, because it's just white. 
+
+// TODO examples, aliases
+
+##### HEX, HSL, RGB, RGBA
+
+There is no particular preference for how colors are set. It might have to do how the colors were specced by the designer. Remember, in Sass, these are often interchangeable. 
+
+// TODO naming, spacing, using in Sass
+
 - **What are some general principles your team should follow when writing CSS?** *(For example, modularity, avoiding long selector strings, etc. See [these](http://cssguidelin.es/) [resources](http://www.yellowshoe.com.au/standards/#css) [for](http://manuals.gravitydept.com/code/css) [inspiration](http://codeguide.co/#css))*
 
 ### CSS Methodology
